@@ -1,0 +1,18 @@
+ceph_auth_user: openstack
+
+use_ceph_openrstack_services:
+  - service: cinder-volume
+    pool_name: tripleo-volumes
+    auth_user: "{{ ceph_auth_user }}"
+
+  - service: cinder-backup
+    pool_name: tripleo-volume-backup
+    auth_user: "{{ ceph_auth_user }}"
+
+  - service: glance-api
+    pool_name: tripleo-images
+    auth_user: "{{ ceph_auth_user}}"
+
+  - service: nova-compute
+    pool_name: tripleo-vms
+    auth_user: "{{ ceph_auth_user }}"

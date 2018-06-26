@@ -1,0 +1,11 @@
+---
+- name: Create pools for service
+  command: ceph osd pool create {{ item.pool_name }} 128
+  with_items: "{{ use_ceph_openrstack_services }}"
+  tags: ceph-configure
+
+- name: Create auth for service
+  command: ceph auth get-or-create client.{{ ceph_auth_user }}
+
+- name: Save keyring into files
+  command: ceph auth get-or-create client.{{ ceph_auth_user }} > /etc/ceph.client.{{ ceph_auth_user }}.key
